@@ -25,7 +25,7 @@ class Videoreid:
         filename=os.path.splitext(base)[0]
         out=cv2.VideoWriter('Output_Videos/'+filename+'.webm',fourcc,fps,(frame_width,frame_height))
         videoOn=True
-        past_ppl='Identity_Gallery/test'
+        past_ppl='Identity_Gallery/test1'
         while(videoOn):
             ret, frame=cap.read()
             if(ret == False):
@@ -77,7 +77,8 @@ class Videoreid:
                 #print(file)
                 file_vector=Videoreid.past_ppl_vector[int(folder)-1][file]
                 distance=api.human_distance(current_img_vector, file_vector)
-                if(distance < 25):
+                # print(distance)
+                if(distance < 8):
                     same=+1
                 else:
                     diff=+1
@@ -86,7 +87,7 @@ class Videoreid:
                 maxp=p
                 fd=folder
         
-        if(maxp > 90):
+        if(maxp > 47):
             files = os.listdir(past_ppl + '/' + fd)
             person_no = len(files) + 1
             cv2.imwrite(past_ppl + '/' + fd + '/' + str(person_no) + '.jpg',img)  
